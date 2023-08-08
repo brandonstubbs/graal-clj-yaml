@@ -1,0 +1,11 @@
+FROM ghcr.io/graalvm/native-image:22.3.2
+
+RUN mkdir native
+WORKDIR /native
+
+COPY nativeimage.sh /native/nativeimage.sh
+COPY target/graal-issue-0.0.1-standalone.jar /native/test.jar
+
+RUN ./nativeimage.sh test.jar test
+
+RUN ./test
